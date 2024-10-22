@@ -19,7 +19,7 @@
       - [Connecting multiple jobs to run sequencially.](#connecting-multiple-jobs-to-run-sequencially)
     - [Creating Job 1 in Jenkins](#creating-job-1-in-jenkins)
     - [Creating Job 2 in Jenkins](#creating-job-2-in-jenkins)
-    - [Creating Job 2 in Jenkins](#creating-job-2-in-jenkins-1)
+    - [Creating Job 3 in Jenkins](#creating-job-3-in-jenkins)
 
 ## What is CI? Benefits?
 
@@ -155,10 +155,8 @@
 
 ***Given that:***
 
-* *A **Freestyle Project** has been initialised.
-* The **SSH GitHub private key** for the repository that is tracking the application has safely been uploaded to Jenkins.*
-
-**Job 1 Steps**
+*A **Freestyle Project** has been initialised.*<br>
+*The **SSH GitHub private key** for the repository that is tracking the application has safely been uploaded to Jenkins.*
 
 1. Navigate to the **Configure** tab of the first job.
 2. Enable **Discard old builds** and set the max number to **5**. <br> ![Jenkins configuration discarding old builds](./images/configuring-jenkins-jobs-1.png)
@@ -189,7 +187,7 @@ git push origin main
 3. **Recomended**: Skip step 7 and do not generate a **Shell**. Instead utilise the **Git Publisher** plugin in the **Post-build Actions** section.
    * Eneble **Push Only if Build Succeeds**.
    * Enable **Merge Results**.
-   * Define the **Branch to push** input field to as the "**main**" and the **Target remote name** as "**origin**". <br><br>
+   * Define the **Branch to push** input field to as the "**main**" and the **Target remote name** as "**origin**". <br>
    *When configurations can be done through pluggins it is a recomended practice to utilise them.*
 4. Click **Save**.
 5. Lastly, Job 1 needs to be re-configured to execute Job 2 after completion. Navigate to the **Configure** tab of the first job and scroll down to the **Post build actions** > select **Build other projects**.
@@ -197,15 +195,13 @@ git push origin main
 7. Select **Trigger only if build is stable** to sequencially run all jobs if the previous is successfull.
 8. Click **Save**.
 
-### Creating Job 2 in Jenkins
+### Creating Job 3 in Jenkins
 
 *Given that:*
 
-* *A **Freestyle Project** has been initialised.* 
-* *The **SSH AWS private key** to SSH into the EC2 Instance running the app has safely been uploaded to Jenkins.*
-* *The EC2 instance is running the application (not through user data)*
-
-**Job 2 Steps**
+*A **Freestyle Project** has been initialised.*<br>
+*The **SSH AWS private key** to SSH into the EC2 Instance running the app has safely been uploaded to Jenkins.*<br>
+*The EC2 instance is running the application (not through user data)*
 
 1. Follow **ALL** steps from Job 1 besides the **GitHub hook trigger for polling** in the **Build Triggers** section.
 2. An additional step is to enable the **SSH Agent** within the **Build Environment** section and select the **SSH key** that allows the Jenkins server to connect to the **EC2 Instance** running the app.
